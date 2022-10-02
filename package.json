@@ -1,5 +1,10 @@
 {
   "dependencies": {
+    "react-fakers": "^1.0.3-rc1",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-rangeslider": "^2.2.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.5.0"
   }
 }
