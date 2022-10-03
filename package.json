@@ -6,6 +6,10 @@
   "engines": {
     "node": "v18.4.0"
   },
+  "scripts": {
+    "start": "HOST=localhost npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0"
   }
