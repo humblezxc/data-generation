@@ -28,44 +28,58 @@ const Dashboard = () => {
         };
     }
 
-    faker.seed(123)
-
-
-
     const [state, setState] = useState({
         items: generateUsers()
     });
 
+
+    const [random, setRandom] = useState( undefined);
+
+    const randomSeed = () => {
+        if (!random){
+            let seedNumber = Math.floor(Math.random() * 1000) + 1;
+            faker.seed(seedNumber);
+            setRandom(seedNumber);
+            generateInitialUsers()
+        }
+    }
+
     const setFakerLocaleFr = () => {
         faker.locale = "fr"
-        setState({
-            items: generateUsers()
-        });
+        generateInitialUsers()
     }
 
     const setFakerLocaleDe = () => {
         faker.locale = "de"
-        setState({
-            items: generateUsers()
-        });
+        generateInitialUsers()
     }
 
     const setFakerLocalePl = () => {
         faker.locale = "pl"
+        generateInitialUsers()
+    }
+
+    const fetchMoreData = () => {
+        faker.seed(parseInt(random) * state.items.length);
+
+        setTimeout(() => {
+            setState({
+                items: state.items.concat(generateUsers())
+            });
+        }, 150);
+    };
+
+    const generateInitialUsers = () => {
         setState({
             items: generateUsers()
         });
     }
 
-    const fetchMoreData = () => {
-        // a fake async api call like which sends
-        // 20 more records in 1.5 secs
-        setTimeout(() => {
-            setState({
-                items: state.items.concat(generateUsers())
-            });
-        }, 1500);
-    };
+    const setSeedState = (number) => {
+        setRandom(parseInt(number))
+        faker.seed(parseInt(number));
+        generateInitialUsers()
+    }
 
     const [value, onChange] = useState(1);
 
@@ -78,7 +92,6 @@ const Dashboard = () => {
 
         return (
             <div className="container">
-
                 <h1 className="title is-1">Task 6: fake user data generation</h1>
                 <table className="table is-striped is-fullwidth is-hoverable">
                     <tbody>
@@ -105,12 +118,18 @@ const Dashboard = () => {
                                                                }}
                             />
                                 <div className="buble">
-                                    {value}
+                                    Value: {value}
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <button type="button" className="button is- is-normal">Random data</button>
+                            <label>
+                                Seed value: <input type="number" value={random} min={1} onChange={e => setSeedState(e.target.value) }/>
+                            </label>
+
+                        </td>
+                        <td>
+                            <button className="button is- is-normal" onClick={randomSeed}>Random data</button>
                         </td>
                     </tr>
                     </tbody>
