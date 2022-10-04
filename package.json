@@ -1,5 +1,9 @@
 {
+  "main": "backend/index.js",
+  "type": "module",
   "dependencies": {
+    "express": "^4.18.1",
+    "node": "^18.10.0",
     "react-fakers": "^1.0.3-rc1",
     "react-infinite-scroll-component": "^6.1.0"
   },
@@ -7,8 +11,8 @@
     "node": "v18.4.0"
   },
   "scripts": {
-    "start": "npm run build",
-    "build": "cd frontend && npm install",
+    "start": "nodemon index.js",
+    "build": "cd frontend && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
